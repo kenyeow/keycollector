@@ -88,5 +88,5 @@ public class KeyCollectorBoard {
         jLabel[3][0].setIcon(gameImage.dozCiztem);
     }
 
-    // TODO: Randomize key
+    // TODO:   Randomize key
 }
