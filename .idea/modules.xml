@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/keycollector.iml" filepath="$PROJECT_DIR$/keycollector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/.idea.iml" filepath="$PROJECT_DIR$/.idea/.idea.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/keycollector.iml" filepath="$PROJECT_DIR$/src/keycollector.iml" />
     </modules>
   </component>
 </project>

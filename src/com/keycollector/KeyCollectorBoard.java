@@ -12,6 +12,7 @@ import java.io.IOException;
 public class KeyCollectorBoard {
 
     private JButton jButton[][] = new JButton[9][9];
+    private JLabel jLabel[][] = new JLabel[4][6];
 
     public KeyCollectorBoard(){
         initializeGui();
@@ -20,7 +21,8 @@ public class KeyCollectorBoard {
     // set up the main gui
     public final void initializeGui() {
         JFrame jFrame = new JFrame();
-        jFrame.setSize(new Dimension(800,600));
+        jFrame.setSize(new Dimension(1100,600));
+        jFrame.setLayout(new BorderLayout());
 
         /** Game Board **/
         GridLayout gameBoard = new GridLayout(9,9);
@@ -33,17 +35,23 @@ public class KeyCollectorBoard {
                 gamePanel.add(jButton[i][j]);
             }
         }
-
         initializeImage(new GameImage());
 
-        /**
-         * TODO: Add a info panel to how keys the player has collected.
+        /** SideBoard **/
         JPanel infoPanel = new JPanel();
-        infoPanel.setSize(new Dimension(300,600));
-         **/
+        infoPanel.setSize(new Dimension(500,600));
+        infoPanel.setLayout(new GridLayout(4,6));
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 6; j ++){
+                jLabel[i][j] = new JLabel();
+                infoPanel.add(jLabel[i][j]);
+            }
+        }
+        initializeSideBoard(new GameImage());
 
-        jFrame.add(gamePanel);
-        // jFrame.add(infoPanel);
+
+        jFrame.add(gamePanel,BorderLayout.WEST);
+        jFrame.add(infoPanel,BorderLayout.EAST);
         jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -64,4 +72,21 @@ public class KeyCollectorBoard {
         jButton[7][6].setIcon(gameImage.keyNote);
     }
 
+    private void initializeSideBoard(GameImage gameImage)
+    {
+        jLabel[0][0].setIcon(gameImage.banGei);
+        jLabel[0][1].setIcon(gameImage.pinkey);
+        jLabel[0][2].setIcon(gameImage.monkey);
+        jLabel[0][3].setIcon(gameImage.donkey);
+        jLabel[0][4].setIcon(gameImage.keyDisk);
+        jLabel[0][5].setIcon(gameImage.keyNote);
+
+
+        jLabel[1][0].setIcon(gameImage.arkImides);
+        jLabel[0][0].setIcon(gameImage.banGei);
+        jLabel[2][0].setIcon(gameImage.canSer);
+        jLabel[3][0].setIcon(gameImage.dozCiztem);
+    }
+
+    // TODO:   Randomize key
 }
