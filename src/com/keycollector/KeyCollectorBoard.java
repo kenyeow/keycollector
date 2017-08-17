@@ -1,9 +1,8 @@
 package com.keycollector;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *  Created by Yeow Wan Shung
@@ -13,6 +12,7 @@ public class KeyCollectorBoard {
 
     private JButton jButton[][] = new JButton[9][9];
     private JLabel jLabel[][] = new JLabel[4][6];
+    final int NUMBER_OF_KEYS = 5;
 
     public KeyCollectorBoard(){
         initializeGui();
@@ -27,15 +27,17 @@ public class KeyCollectorBoard {
         /** Game Board **/
         GridLayout gameBoard = new GridLayout(9,9);
 
+        GameImage gameImage = new GameImage();
+
         JPanel gamePanel = new JPanel();
         gamePanel.setLayout(gameBoard);
         for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j ++){
+            for(int j = 0; j < 9; j++){
                 jButton[i][j] = new JButton();
                 gamePanel.add(jButton[i][j]);
             }
         }
-        initializeImage(new GameImage());
+        initializeGameBoard(gameImage);
 
         /** SideBoard **/
         JPanel infoPanel = new JPanel();
@@ -47,8 +49,7 @@ public class KeyCollectorBoard {
                 infoPanel.add(jLabel[i][j]);
             }
         }
-        initializeSideBoard(new GameImage());
-
+        initializeSideBoard(gameImage);
 
         jFrame.add(gamePanel,BorderLayout.WEST);
         jFrame.add(infoPanel,BorderLayout.EAST);
@@ -57,7 +58,7 @@ public class KeyCollectorBoard {
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    private void initializeImage(GameImage gameImage){
+    private void initializeGameBoard(GameImage gameImage){
         jButton[0][0].setIcon(gameImage.banGei);
         jButton[0][8].setIcon(gameImage.arkImides);
         jButton[8][0].setIcon(gameImage.canSer);
@@ -65,28 +66,27 @@ public class KeyCollectorBoard {
 
         jButton[4][4].setIcon(gameImage.treasureChest);
 
-        jButton[1][2].setIcon(gameImage.pinkey);
-        jButton[3][6].setIcon(gameImage.monkey);
-        jButton[6][3].setIcon(gameImage.donkey);
-        jButton[7][2].setIcon(gameImage.keyDisk);
-        jButton[7][6].setIcon(gameImage.keyNote);
+        randomizeKey();
     }
 
-    private void initializeSideBoard(GameImage gameImage)
-    {
+    private void initializeSideBoard(GameImage gameImage){
         jLabel[0][0].setIcon(gameImage.banGei);
-        jLabel[0][1].setIcon(gameImage.pinkey);
-        jLabel[0][2].setIcon(gameImage.monkey);
-        jLabel[0][3].setIcon(gameImage.donkey);
-        jLabel[0][4].setIcon(gameImage.keyDisk);
-        jLabel[0][5].setIcon(gameImage.keyNote);
-
-
         jLabel[1][0].setIcon(gameImage.arkImides);
-        jLabel[0][0].setIcon(gameImage.banGei);
         jLabel[2][0].setIcon(gameImage.canSer);
         jLabel[3][0].setIcon(gameImage.dozCiztem);
     }
 
-    // TODO:   Randomize key
+    private void randomizeKey(){
+        ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEYS);
+        ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEYS);
+
+        row = RandomNumberUtils.addRandomNumberToArrayList(row, jButton.length - 1, NUMBER_OF_KEYS);
+        column = RandomNumberUtils.addRandomNumberToArrayList(column, jButton.length - 1, NUMBER_OF_KEYS);
+
+        for(int i = 0; i < NUMBER_OF_KEYS; i++){
+            jButton[row.get(i)][column.get(i)].setIcon(new GameImage().pinkey);
+        }
+
+        // TODO: set correct image into randomized row and column
+    }
 }
