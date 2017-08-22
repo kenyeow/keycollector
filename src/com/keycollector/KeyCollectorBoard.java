@@ -10,8 +10,9 @@ import java.util.ArrayList;
  * **/
 public class KeyCollectorBoard {
 
-    private JButton jButton[][] = new JButton[9][9];
+    private Squares squares[][] = new Squares[9][9];
     private JLabel jLabel[][] = new JLabel[4][6];
+    private JLabel toolBarInfo;
     final int NUMBER_OF_KEYS = 5;
 
     public KeyCollectorBoard(){
@@ -33,8 +34,8 @@ public class KeyCollectorBoard {
         gamePanel.setLayout(gameBoard);
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++){
-                jButton[i][j] = new JButton();
-                gamePanel.add(jButton[i][j]);
+                squares[i][j] = new Squares();
+                gamePanel.add(squares[i][j]);
             }
         }
         initializeGameBoard(gameImage);
@@ -51,20 +52,25 @@ public class KeyCollectorBoard {
         }
         initializeSideBoard(gameImage);
 
+        JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        toolBarInfo = new JLabel("Player 1 turn.");
+        toolBar.add(toolBarInfo);
+
         jFrame.add(gamePanel,BorderLayout.WEST);
         jFrame.add(infoPanel,BorderLayout.EAST);
+        jFrame.add(toolBar, BorderLayout.SOUTH);
         jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void initializeGameBoard(GameImage gameImage){
-        jButton[0][0].setIcon(gameImage.getPlayerIcon(0));
-        jButton[0][8].setIcon(gameImage.getPlayerIcon(1));
-        jButton[8][0].setIcon(gameImage.getPlayerIcon(2));
-        jButton[8][8].setIcon(gameImage.getPlayerIcon(3));
+        squares[0][0].setIcon(gameImage.getPlayerIcon(0));
+        squares[0][8].setIcon(gameImage.getPlayerIcon(1));
+        squares[8][0].setIcon(gameImage.getPlayerIcon(2));
+        squares[8][8].setIcon(gameImage.getPlayerIcon(3));
 
-        jButton[4][4].setIcon(gameImage.getTreasureChest());
+        squares[4][4].setIcon(gameImage.getTreasureChest());
 
         randomizeKey();
     }
@@ -80,11 +86,16 @@ public class KeyCollectorBoard {
         ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEYS);
         ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEYS);
 
-        row = RandomNumberUtils.addRandomNumberToArrayList(row, jButton.length - 1, NUMBER_OF_KEYS);
-        column = RandomNumberUtils.addRandomNumberToArrayList(column, jButton.length - 1, NUMBER_OF_KEYS);
+        row = RandomNumberUtils.addRandomNumberToArrayList(row, squares.length - 2, NUMBER_OF_KEYS);
+        column = RandomNumberUtils.addRandomNumberToArrayList(column, squares.length - 2, NUMBER_OF_KEYS);
 
         for(int i = 0; i < NUMBER_OF_KEYS; i++){
-            jButton[row.get(i)][column.get(i)].setIcon(new GameImage().getKeyIcon(i));
+            while (row.get(i).equals(4) && column.get(i).equals(4)){
+                row.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
+                column.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
+            }
+
+            squares[row.get(i)][column.get(i)].setIcon(new GameImage().getKeyIcon(i));
         }
     }
 }
