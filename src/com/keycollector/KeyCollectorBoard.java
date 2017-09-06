@@ -10,10 +10,10 @@ import java.util.ArrayList;
  * **/
 public class KeyCollectorBoard {
 
-    private Squares squares[][] = new Squares[9][9];
-    private JLabel jLabel[][] = new JLabel[4][6];
-    private JLabel toolBarInfo;
-    final int NUMBER_OF_KEYS = 5;
+    private static final int NUMBER_OF_KEY = 5;
+    private static Square squares[][] = new Square[9][9];
+    private static JLabel jLabel[][] = new JLabel[4][6];
+    private static JLabel toolBarInfo;
 
     public KeyCollectorBoard(){
         initializeGui();
@@ -34,7 +34,9 @@ public class KeyCollectorBoard {
         gamePanel.setLayout(gameBoard);
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++){
-                squares[i][j] = new Squares();
+                squares[i][j] = new Square();
+                squares[i][j].putClientProperty("row", i);
+                squares[i][j].putClientProperty("column", j);
                 gamePanel.add(squares[i][j]);
             }
         }
@@ -53,7 +55,7 @@ public class KeyCollectorBoard {
         initializeSideBoard(gameImage);
 
         JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        toolBarInfo = new JLabel("Player 1 turn.");
+        toolBarInfo = new JLabel();
         toolBar.add(toolBarInfo);
 
         jFrame.add(gamePanel,BorderLayout.WEST);
@@ -65,31 +67,33 @@ public class KeyCollectorBoard {
     }
 
     private void initializeGameBoard(GameImage gameImage){
-        squares[0][0].setIcon(gameImage.getPlayerIcon(0));
-        squares[0][8].setIcon(gameImage.getPlayerIcon(1));
-        squares[8][0].setIcon(gameImage.getPlayerIcon(2));
-        squares[8][8].setIcon(gameImage.getPlayerIcon(3));
-
         squares[4][4].setIcon(gameImage.getTreasureChest());
-
-        randomizeKey();
+        initializeKeyInRandom();
     }
 
-    private void initializeSideBoard(GameImage gameImage){
+    public static Square[][] getSquares() {
+        return squares;
+    }
+
+    private void initializeSideBoard(GameImage gameImage) {
         jLabel[0][0].setIcon(gameImage.getPlayerIcon(0));
         jLabel[1][0].setIcon(gameImage.getPlayerIcon(1));
         jLabel[2][0].setIcon(gameImage.getPlayerIcon(2));
         jLabel[3][0].setIcon(gameImage.getPlayerIcon(3));
     }
 
-    private void randomizeKey(){
-        ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEYS);
-        ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEYS);
+    public void setToolBarInfo(String info){
+        toolBarInfo.setText(info);
+    }
 
-        row = RandomNumberUtils.addRandomNumberToArrayList(row, squares.length - 2, NUMBER_OF_KEYS);
-        column = RandomNumberUtils.addRandomNumberToArrayList(column, squares.length - 2, NUMBER_OF_KEYS);
+    private void initializeKeyInRandom(){
+        ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEY);
+        ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEY);
 
-        for(int i = 0; i < NUMBER_OF_KEYS; i++){
+        row = RandomNumberUtils.addRandomNumberToArrayList(row, squares.length - 2, NUMBER_OF_KEY);
+        column = RandomNumberUtils.addRandomNumberToArrayList(column, squares.length - 2, NUMBER_OF_KEY);
+
+        for(int i = 0; i < NUMBER_OF_KEY; i++){
             while (row.get(i).equals(4) && column.get(i).equals(4)){
                 row.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
                 column.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
