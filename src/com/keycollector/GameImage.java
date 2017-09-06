@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class GameImage {
 
     private final ImageIcon treasureChest;
-    private ArrayList<ImageIcon> playerIcons;
-    private ArrayList<ImageIcon> keyIcons;
+    private final ArrayList<ImageIcon> playerIcons;
+    private final ArrayList<ImageIcon> keyIcons;
 
     public GameImage(){
         playerIcons = new ArrayList<>();
