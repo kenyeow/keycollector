@@ -1,17 +1,20 @@
 package com.keycollector;
 
+import java.util.ArrayList;
+
 public class Gameplay {
 
     private static int x = 0;
-    private static KeyCollectorBoard keyCollectorBoard;
-    private static Player[] player = new Player[4];
+    private static final int NUMBER_OF_KEY = 5;
+    private static final int NUMBER_OF_PLAYER = 4;
+    private static Player[] player = new Player[NUMBER_OF_PLAYER];
+    private static Key[] key = new Key[NUMBER_OF_KEY];
     private static Player currentPlayer = null;
     private static Square[][] squares;
 
-
     public Gameplay(){
         GameImage gameImage = new GameImage();
-        keyCollectorBoard = new KeyCollectorBoard();
+        new KeyCollectorBoard();
         player[0] = new Player(gameImage.getPlayerIcon(0), 0, 0);
         player[1] = new Player(gameImage.getPlayerIcon(1), 0, 8);
         player[2] = new Player(gameImage.getPlayerIcon(2), 8, 0);
@@ -23,11 +26,16 @@ public class Gameplay {
         squares[8][0].setPlayer(player[2]);
         squares[8][8].setPlayer(player[3]);
 
+        for (int i = 0; i < NUMBER_OF_KEY; i++){
+            key[i] = new Key(gameImage.getKeyIcon(i));
+        }
+
+        initializeKeyInRandom();
         initializeGamePlay();
     }
 
     private void initializeGamePlay(){
-        keyCollectorBoard.setToolBarInfo("Player 1 turn");
+        KeyCollectorBoard.setToolBarInfo("Player 1 turn");
         currentPlayer = player[0];
     }
 
@@ -42,11 +50,26 @@ public class Gameplay {
             x = 0;
         }
         currentPlayer = player[x];
-        keyCollectorBoard.setToolBarInfo("Player " + x + " turn");
+        KeyCollectorBoard.setToolBarInfo("Player " + (x + 1) + " turn");
         return currentPlayer;
     }
 
+    private void initializeKeyInRandom(){
+        ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEY);
+        ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEY);
 
+        row = RandomNumberUtils.addRandomNumberToArrayList(row, squares.length - 2, NUMBER_OF_KEY);
+        column = RandomNumberUtils.addRandomNumberToArrayList(column, squares.length - 2, NUMBER_OF_KEY);
+
+        for(int i = 0; i < NUMBER_OF_KEY; i++){
+            while (row.get(i).equals(4) && column.get(i).equals(4)){
+                row.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
+                column.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
+            }
+
+            squares[row.get(i)][column.get(i)].setKey(key[i]);
+        }
+    }
 
     public static void removePlayerFromSquare(int row, int column){
         squares[row][column].removePlayer();

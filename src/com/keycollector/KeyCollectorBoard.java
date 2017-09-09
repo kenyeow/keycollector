@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * **/
 public class KeyCollectorBoard {
 
-    private static final int NUMBER_OF_KEY = 5;
     private static Square squares[][] = new Square[9][9];
     private static JLabel jLabel[][] = new JLabel[4][6];
     private static JLabel toolBarInfo;
@@ -46,10 +45,10 @@ public class KeyCollectorBoard {
         JPanel infoPanel = new JPanel();
         infoPanel.setSize(new Dimension(500,600));
         infoPanel.setLayout(new GridLayout(4,6));
-        for(int i = 0; i < 4; i++) {
-            for(int j = 0; j < 6; j ++){
-                jLabel[i][j] = new JLabel();
-                infoPanel.add(jLabel[i][j]);
+        for(int player = 0; player < 4; player++) {
+            for(int key = 0; key < 6; key ++){
+                jLabel[player][key] = new JLabel();
+                infoPanel.add(jLabel[player][key]);
             }
         }
         initializeSideBoard(gameImage);
@@ -68,7 +67,6 @@ public class KeyCollectorBoard {
 
     private void initializeGameBoard(GameImage gameImage){
         squares[4][4].setIcon(gameImage.getTreasureChest());
-        initializeKeyInRandom();
     }
 
     public static Square[][] getSquares() {
@@ -82,24 +80,8 @@ public class KeyCollectorBoard {
         jLabel[3][0].setIcon(gameImage.getPlayerIcon(3));
     }
 
-    public void setToolBarInfo(String info){
+    public static void setToolBarInfo(String info){
         toolBarInfo.setText(info);
     }
 
-    private void initializeKeyInRandom(){
-        ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEY);
-        ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEY);
-
-        row = RandomNumberUtils.addRandomNumberToArrayList(row, squares.length - 2, NUMBER_OF_KEY);
-        column = RandomNumberUtils.addRandomNumberToArrayList(column, squares.length - 2, NUMBER_OF_KEY);
-
-        for(int i = 0; i < NUMBER_OF_KEY; i++){
-            while (row.get(i).equals(4) && column.get(i).equals(4)){
-                row.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
-                column.set(i, RandomNumberUtils.generateRandomNumber(squares.length - 2));
-            }
-
-            squares[row.get(i)][column.get(i)].setIcon(new GameImage().getKeyIcon(i));
-        }
-    }
 }

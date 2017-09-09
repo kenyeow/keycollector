@@ -2,7 +2,7 @@ package com.keycollector;
 
 import javax.swing.*;
 
-public class Player{
+public final class Player{
 
     private ImageIcon icon;
     private int currentRow;

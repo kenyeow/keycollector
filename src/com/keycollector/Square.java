@@ -8,9 +8,10 @@ import javax.swing.*;
 
 public class Square extends JButton {
 
-    private boolean playerOccupy;
+    private boolean playerOccupy = false;
     private boolean keyOccupy;
     private Player player = null;
+    private Key key = null;
 
     public Square(){
         super();
@@ -27,6 +28,12 @@ public class Square extends JButton {
         this.player = null;
         playerOccupy = false;
         setIcon(null);
+    }
+
+    public void setKey(Key key){
+        this.key = key;
+        keyOccupy = true;
+        setIcon(key.getIcon());
     }
 
     public boolean isPlayerOccupy(){
