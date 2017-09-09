@@ -12,6 +12,7 @@ public class Square extends JButton {
     private boolean keyOccupy;
     private Player player = null;
     private Key key = null;
+    private Icon icon = null;
 
     public Square(){
         super();
@@ -21,19 +22,22 @@ public class Square extends JButton {
     public void setPlayer(Player player){
         this.player = player;
         playerOccupy = true;
-        setIcon(player.getIcon());
+        icon = player.getIcon();
+        setIcon(icon);
     }
 
     public void removePlayer(){
         this.player = null;
         playerOccupy = false;
-        setIcon(null);
+        icon = null;
+        setIcon(icon);
     }
 
     public void setKey(Key key){
         this.key = key;
         keyOccupy = true;
-        setIcon(key.getIcon());
+        icon = key.getIcon();
+        setIcon(icon);
     }
 
     public boolean isPlayerOccupy(){

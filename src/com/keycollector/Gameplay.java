@@ -15,6 +15,18 @@ public class Gameplay {
     public Gameplay(){
         GameImage gameImage = new GameImage();
         new KeyCollectorBoard();
+
+        initializePlayer(gameImage);
+        initializeKey(gameImage);
+        initializeKeyInRandom();
+        initializeGamePlay();
+    }
+
+    /**
+     * initialize player and set the player initial position
+     * add the initialized player into squares.
+     * **/
+    private void initializePlayer(GameImage gameImage){
         player[0] = new Player(gameImage.getPlayerIcon(0), 0, 0);
         player[1] = new Player(gameImage.getPlayerIcon(1), 0, 8);
         player[2] = new Player(gameImage.getPlayerIcon(2), 8, 0);
@@ -25,13 +37,19 @@ public class Gameplay {
         squares[0][8].setPlayer(player[1]);
         squares[8][0].setPlayer(player[2]);
         squares[8][8].setPlayer(player[3]);
+    }
 
-        for (int i = 0; i < NUMBER_OF_KEY; i++){
-            key[i] = new Key(gameImage.getKeyIcon(i));
-        }
-
-        initializeKeyInRandom();
-        initializeGamePlay();
+    private void initializeKey(GameImage gameImage){
+        key[0] = new Key(gameImage.getKeyIcon(0), 1,
+                1, 1);
+        key[1] = new Key(gameImage.getKeyIcon(1), 0,
+                0, 3);
+        key[2] = new Key(gameImage.getKeyIcon(2), 3,
+                3,0);
+        key[3] = new Key(gameImage.getKeyIcon(3), 2,
+                2,2);
+        key[4] = new Key(gameImage.getKeyIcon(4), 3,
+                3,3);
     }
 
     private void initializeGamePlay(){
