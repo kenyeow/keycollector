@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.getFrameForComponent;
 
 public class Movement implements ActionListener {
 
@@ -94,11 +93,18 @@ public class Movement implements ActionListener {
         Gameplay.removePlayerFromSquare(oriRow, oriColumn);
         currentPlayer.setPostion(moveToRow, moveToColumn);
         squareClicked.setPlayer(currentPlayer);
+
+        if(isSquareOccupiedByKey()){
+            currentPlayer.addKey(squareClicked.getKey());
+            KeyCollectorBoard.updateSideBoard(currentPlayer);
+        }
     }
 
-    private boolean checkIfSquareOccupied(){
+    private boolean isSquareOccupiedByPlayer(){
         return squareClicked.isPlayerOccupy();
     }
+
+    private boolean isSquareOccupiedByKey() { return squareClicked.isKeyOccupy(); }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -111,7 +117,7 @@ public class Movement implements ActionListener {
         oriRow = currentPlayer.getCurrentRow();
         oriColumn = currentPlayer.getCurrentColumn();
 
-        if(checkRestriction(currentPlayer) && !checkIfSquareOccupied()) {
+        if(checkRestriction(currentPlayer) && !isSquareOccupiedByPlayer()) {
             makeMove(currentPlayer);
             Gameplay.nextPlayer(currentPlayer);
             return;

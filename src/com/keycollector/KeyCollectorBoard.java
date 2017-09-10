@@ -2,6 +2,8 @@ package com.keycollector;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *  Created by Yeow Wan Shung
@@ -77,6 +79,12 @@ public class KeyCollectorBoard {
         jLabel[1][0].setIcon(gameImage.getPlayerIcon(1));
         jLabel[2][0].setIcon(gameImage.getPlayerIcon(2));
         jLabel[3][0].setIcon(gameImage.getPlayerIcon(3));
+    }
+
+    public static void updateSideBoard(Player player){
+        int playerIndex = Arrays.asList(Gameplay.getPlayer()).indexOf(player);
+        int keyIndex = player.getKeyCollection().size();
+        jLabel[playerIndex][keyIndex].setIcon(player.getLastKey().getIcon());
     }
 
     public static void setToolBarInfo(String info){

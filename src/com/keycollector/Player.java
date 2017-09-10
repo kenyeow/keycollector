@@ -34,8 +34,14 @@ public final class Player{
         currentColumn = coloumn;
     }
 
+    public ArrayList<Key> getKeyCollection() {
+        return keyCollection;
+    }
+
     public void addKey(Key key){
-        keyCollection.add(key);
+        if(!keyCollection.contains(key)){
+            keyCollection.add(key);
+        }
     }
 
     public Key getLastKey(){

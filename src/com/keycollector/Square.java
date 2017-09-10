@@ -9,10 +9,11 @@ import javax.swing.*;
 public class Square extends JButton {
 
     private boolean playerOccupy = false;
-    private boolean keyOccupy;
+    private boolean keyOccupy = false;
     private Player player = null;
     private Key key = null;
-    private Icon icon = null;
+    private Icon keyIcon = null;
+    private Icon playerIcon = null;
 
     public Square(){
         super();
@@ -22,26 +23,34 @@ public class Square extends JButton {
     public void setPlayer(Player player){
         this.player = player;
         playerOccupy = true;
-        icon = player.getIcon();
-        setIcon(icon);
+        playerIcon = player.getIcon();
+        setIcon(playerIcon);
     }
 
     public void removePlayer(){
         this.player = null;
         playerOccupy = false;
-        icon = null;
-        setIcon(icon);
+        playerIcon = null;
+        setIcon(keyIcon);
     }
 
     public void setKey(Key key){
         this.key = key;
         keyOccupy = true;
-        icon = key.getIcon();
-        setIcon(icon);
+        keyIcon = key.getIcon();
+        setIcon(keyIcon);
+    }
+
+    public Key getKey(){
+        return key;
     }
 
     public boolean isPlayerOccupy(){
         return playerOccupy;
+    }
+
+    public boolean isKeyOccupy() {
+        return keyOccupy;
     }
 
 }

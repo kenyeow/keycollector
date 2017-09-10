@@ -63,6 +63,10 @@ public class Gameplay {
         return currentPlayer;
     }
 
+    public static Player[] getPlayer() {
+        return player;
+    }
+
     public static void nextPlayer(Player currentPlayer){
         int currentPlayerTurn = Arrays.asList(player).indexOf(currentPlayer);
 
