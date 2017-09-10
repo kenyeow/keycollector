@@ -1,11 +1,14 @@
 package com.keycollector;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.getFrameForComponent;
+
 public class Movement implements ActionListener {
 
-    Player currentPlayer;
     private int moveToRow, moveToColumn;
     private int oriRow, oriColumn;
     private Square squareClicked;
@@ -25,11 +28,10 @@ public class Movement implements ActionListener {
         int ableToMoveDiagonal = playerLastKey.
                 getMovementRestriction().getAbleToMoveDiagonal();
 
-        ableToMove = checkDirection(moveToRow, oriRow, ableToMoveVertical) ||
-        checkDirection(moveToColumn, oriColumn, ableToMoveHorizontal) ||
-        checkDiagonal(moveToRow, moveToColumn, oriRow, oriColumn, ableToMoveDiagonal);
+        ableToMove = (checkDirection(moveToRow, oriRow, ableToMoveVertical) &&
+                checkDirection(moveToColumn, oriColumn, ableToMoveHorizontal)) ||
+                checkDiagonal(moveToRow, moveToColumn, oriRow, oriColumn, ableToMoveDiagonal);
         return ableToMove;
-
     }
 
     private boolean normalRestriction(){
@@ -88,29 +90,36 @@ public class Movement implements ActionListener {
         return false;
     }
 
+    private void makeMove(Player currentPlayer){
+        Gameplay.removePlayerFromSquare(oriRow, oriColumn);
+        currentPlayer.setPostion(moveToRow, moveToColumn);
+        squareClicked.setPlayer(currentPlayer);
+    }
+
+    private boolean checkIfSquareOccupied(){
+        return squareClicked.isPlayerOccupy();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         squareClicked = (Square) e.getSource();
+
         moveToRow = Integer.parseInt(squareClicked.getClientProperty("row").toString());
         moveToColumn = Integer.parseInt(squareClicked.getClientProperty("column").toString());
-        System.out.println("Row " + moveToRow);
-        System.out.println("Column " + moveToColumn);
 
-        currentPlayer = Gameplay.getCurrentPlayer();
+        Player currentPlayer = Gameplay.getCurrentPlayer();
         oriRow = currentPlayer.getCurrentRow();
         oriColumn = currentPlayer.getCurrentColumn();
-        if(checkRestriction(currentPlayer))
-        {
-            Gameplay.removePlayerFromSquare(oriRow, oriColumn);
-            currentPlayer.setPostion(moveToRow, moveToColumn);
-            squareClicked.setPlayer(currentPlayer);
-            currentPlayer = Gameplay.nextPlayer();
-        }
-        else
-        {
-            System.out.println("Invalid Movement");
+
+        if(checkRestriction(currentPlayer) && !checkIfSquareOccupied()) {
+            makeMove(currentPlayer);
+            Gameplay.nextPlayer(currentPlayer);
+            return;
         }
 
-
+        JOptionPane.showMessageDialog(null,
+                "You just made an invalid move!",
+                "Invalid Move",
+                ERROR_MESSAGE);
     }
 }

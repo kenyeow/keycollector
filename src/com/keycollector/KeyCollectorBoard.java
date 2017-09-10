@@ -2,7 +2,6 @@ package com.keycollector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *  Created by Yeow Wan Shung

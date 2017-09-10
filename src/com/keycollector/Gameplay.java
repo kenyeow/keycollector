@@ -1,10 +1,12 @@
 package com.keycollector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Gameplay {
 
-    private static int x = 0;
+    // TODO: player able to get key, player win game, fix oo principle.
+
     private static final int NUMBER_OF_KEY = 5;
     private static final int NUMBER_OF_PLAYER = 4;
     private static Player[] player = new Player[NUMBER_OF_PLAYER];
@@ -61,15 +63,15 @@ public class Gameplay {
         return currentPlayer;
     }
 
-    public static Player nextPlayer(){
-        x++;
-        if(x > 3)
-        {
-            x = 0;
-        }
-        currentPlayer = player[x];
-        KeyCollectorBoard.setToolBarInfo("Player " + (x + 1) + " turn");
-        return currentPlayer;
+    public static void nextPlayer(Player currentPlayer){
+        int currentPlayerTurn = Arrays.asList(player).indexOf(currentPlayer);
+
+        int nextPlayerTurn = currentPlayerTurn + 1;
+        if (nextPlayerTurn > 3) { nextPlayerTurn = 0; }
+
+        Player nextPlayer = player[nextPlayerTurn];
+        Gameplay.currentPlayer = nextPlayer;
+        KeyCollectorBoard.setToolBarInfo("Player " + (nextPlayerTurn + 1) + " turn");
     }
 
     private void initializeKeyInRandom(){
