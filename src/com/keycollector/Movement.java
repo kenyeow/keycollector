@@ -23,6 +23,12 @@ public class Movement implements ActionListener {
         boolean ableToMove;
         Key playerLastKey = player.getLastKey();
 
+        if(squareClicked.hasTreasureChest()){
+            if(!checkWinStatus(player)){
+                return false;
+            }
+        }
+
         if(playerLastKey == null){
             return normalRestriction();
         }
@@ -105,20 +111,18 @@ public class Movement implements ActionListener {
             currentPlayer.addKey(squareClicked.getKey());
             KeyCollectorBoard.updateSideBoard(currentPlayer);
         }
-
-        checkWinStatus(currentPlayer);
     }
 
-    private void checkWinStatus(Player player){
+    private boolean checkWinStatus(Player player){
         if(Gameplay.playerHasAllKey(player)){
-            if (squareClicked.hasTreasureChest()){
-                JOptionPane.showMessageDialog(null
-                        , "Player " +
-                                (Arrays.asList(Gameplay.getPlayer()).indexOf(player) + 1) +
-                        "has won the game! Congratulations",
-                        "You WON", ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null
+                    , "Player " +
+                            (Arrays.asList(Gameplay.getPlayer()).indexOf(player) + 1) +
+                            "has won the game! Congratulations",
+                    "You WON", ERROR_MESSAGE);
+            return true;
         }
+        return false;
     }
 
     private boolean isSquareOccupiedByPlayer(){
