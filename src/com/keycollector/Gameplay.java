@@ -3,9 +3,10 @@ package com.keycollector;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Gameplay class responsible for setting up players and keys.
+ * **/
 public class Gameplay {
-
-    // TODO: player able to get key, player win game, fix oo principle.
 
     private static final int NUMBER_OF_KEY = 5;
     private static final int NUMBER_OF_PLAYER = 4;
@@ -21,6 +22,7 @@ public class Gameplay {
         initializePlayer(gameImage);
         initializeKey(gameImage);
         initializeKeyInRandom();
+        squares[4][4].setTreasureChest(new TreasureChest(gameImage.getTreasureChest()));
         initializeGamePlay();
     }
 
@@ -41,6 +43,9 @@ public class Gameplay {
         squares[8][8].setPlayer(player[3]);
     }
 
+    /**
+     * initialize key and set the key restriction and image.
+     * **/
     private void initializeKey(GameImage gameImage){
         key[0] = new Key(gameImage.getKeyIcon(0), 1,
                 1, 1);
@@ -67,6 +72,17 @@ public class Gameplay {
         return player;
     }
 
+    public static boolean playerHasAllKey(Player player){
+        if(player.getKeyCollection().size() == NUMBER_OF_KEY){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * switch turn from current player to next player.
+     * **/
     public static void nextPlayer(Player currentPlayer){
         int currentPlayerTurn = Arrays.asList(player).indexOf(currentPlayer);
 
@@ -78,6 +94,9 @@ public class Gameplay {
         KeyCollectorBoard.setToolBarInfo("Player " + (nextPlayerTurn + 1) + " turn");
     }
 
+    /**
+     * set the initialized key into KeyCollectorBoard randomly.
+     * **/
     private void initializeKeyInRandom(){
         ArrayList<Integer> row = new ArrayList<>(NUMBER_OF_KEY);
         ArrayList<Integer> column = new ArrayList<>(NUMBER_OF_KEY);

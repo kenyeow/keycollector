@@ -2,12 +2,14 @@ package com.keycollector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *  Created by Yeow Wan Shung
- *
+ *  KeyCollectorBoard class is responsible for initializing the GUI Frame
+ *      for the game.
+ *  It also contain side board to show information for each player key collection.
+ *  It also contain method to update the side board.
+ *  It also contain method to update the toolbar info.
  * **/
 public class KeyCollectorBoard {
 

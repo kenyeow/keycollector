@@ -3,9 +3,16 @@ package com.keycollector;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
+/**
+ * Movement class is an ActionListener class for square class
+ * It is responsible for movement of the player.
+ * It checks the restriction of the player based on their key collection.
+ * It also performs movement for the player to selected position if it is not restricted.
+ * **/
 public class Movement implements ActionListener {
 
     private int moveToRow, moveToColumn;
@@ -97,6 +104,20 @@ public class Movement implements ActionListener {
         if(isSquareOccupiedByKey()){
             currentPlayer.addKey(squareClicked.getKey());
             KeyCollectorBoard.updateSideBoard(currentPlayer);
+        }
+
+        checkWinStatus(currentPlayer);
+    }
+
+    private void checkWinStatus(Player player){
+        if(Gameplay.playerHasAllKey(player)){
+            if (squareClicked.hasTreasureChest()){
+                JOptionPane.showMessageDialog(null
+                        , "Player " +
+                                (Arrays.asList(Gameplay.getPlayer()).indexOf(player) + 1) +
+                        "has won the game! Congratulations",
+                        "You WON", ERROR_MESSAGE);
+            }
         }
     }
 

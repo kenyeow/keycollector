@@ -2,6 +2,10 @@ package com.keycollector;
 
 import javax.swing.*;
 
+/**
+ * Key class hold the information of movement restriction
+ * It contain method to retrieve the key movement restriction information.
+ * **/
 public class Key{
 
     private ImageIcon icon;

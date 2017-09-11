@@ -3,7 +3,10 @@ package com.keycollector;
 import javax.swing.*;
 
 /**
- * Created by Yeow Wan Shung
+ * Square class is a JButton in KeyCollectorBoard
+ * Each square responsible for set player, remove player,
+ *      add key and remove key.
+ * It also contain method to check if the square is occupied by Player or Key.
  * **/
 
 public class Square extends JButton {
@@ -12,8 +15,10 @@ public class Square extends JButton {
     private boolean keyOccupy = false;
     private Player player = null;
     private Key key = null;
+    private TreasureChest treasureChest = null;
     private Icon keyIcon = null;
     private Icon playerIcon = null;
+    private Icon treasureChestIcon = null;
 
     public Square(){
         super();
@@ -39,6 +44,15 @@ public class Square extends JButton {
         keyOccupy = true;
         keyIcon = key.getIcon();
         setIcon(keyIcon);
+    }
+
+    public void setTreasureChest(TreasureChest treasureChest){
+        this.treasureChest = treasureChest;
+        this.treasureChestIcon = treasureChest.getIcon();
+    }
+
+    public boolean hasTreasureChest(){
+        return treasureChest != null;
     }
 
     public Key getKey(){

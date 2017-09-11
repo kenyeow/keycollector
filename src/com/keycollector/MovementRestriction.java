@@ -1,5 +1,9 @@
 package com.keycollector;
 
+/**
+ * MovementRestriction class is a class to hold the movement
+ *      restriction of vertical, horizontal and diagonal.
+ * **/
 public class MovementRestriction {
 
     private int ableToMoveHorizontal;
