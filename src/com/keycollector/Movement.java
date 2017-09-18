@@ -24,7 +24,7 @@ public class Movement implements ActionListener {
         Key playerLastKey = player.getLastKey();
 
         if(squareClicked.hasTreasureChest()){
-            if(!checkWinStatus(player)){
+            if(!Gameplay.playerHasAllKey(player)){
                 return false;
             }
         }
@@ -113,16 +113,17 @@ public class Movement implements ActionListener {
         }
     }
 
-    private boolean checkWinStatus(Player player){
-        if(Gameplay.playerHasAllKey(player)){
-            JOptionPane.showMessageDialog(null
-                    , "Player " +
-                            (Arrays.asList(Gameplay.getPlayer()).indexOf(player) + 1) +
-                            "has won the game! Congratulations",
-                    "You WON", ERROR_MESSAGE);
-            return true;
+    private void checkWinStatus(Player player){
+        if(squareClicked.hasTreasureChest()){
+            if(Gameplay.playerHasAllKey(player)){
+                JOptionPane.showMessageDialog(null
+                        , "Player " +
+                                (Arrays.asList(Gameplay.getPlayer()).indexOf(player) + 1) +
+                                " has won the game! Congratulations",
+                        "You WON", ERROR_MESSAGE);
+                System.exit(0);
+            }
         }
-        return false;
     }
 
     private boolean isSquareOccupiedByPlayer(){
@@ -144,6 +145,7 @@ public class Movement implements ActionListener {
 
         if(checkRestriction(currentPlayer) && !isSquareOccupiedByPlayer()) {
             makeMove(currentPlayer);
+            checkWinStatus(currentPlayer);
             Gameplay.nextPlayer(currentPlayer);
             return;
         }
