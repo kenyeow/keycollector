@@ -1,6 +1,7 @@
 package com.keycollector;
 
 /**
+ * Created by Yeow Wan Shung, Fam Xuan Deng
  * MovementRestriction class is a class to hold the movement
  *      restriction of vertical, horizontal and diagonal.
  * **/

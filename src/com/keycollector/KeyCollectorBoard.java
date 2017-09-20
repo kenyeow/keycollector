@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.Arrays;
 
 /**
+ * Created by Tan Di Xiang, Chiaw Pang Yee, Eric Chia
  *  KeyCollectorBoard class is responsible for initializing the GUI Frame
  *      for the game.
  *  It also contain side board to show information for each player key collection.
@@ -22,7 +23,7 @@ public class KeyCollectorBoard {
     }
 
     // set up the main gui
-     public final void initializeGui() {
+     private final void initializeGui() {
         JFrame jFrame = new JFrame();
         jFrame.setSize(new Dimension(1100,600));
         jFrame.setLayout(new BorderLayout());

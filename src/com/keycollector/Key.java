@@ -3,6 +3,7 @@ package com.keycollector;
 import javax.swing.*;
 
 /**
+ * Created by Yeow Wan Shung, Fam Xuan Deng
  * Key class hold the information of movement restriction
  * It contain method to retrieve the key movement restriction information.
  * **/

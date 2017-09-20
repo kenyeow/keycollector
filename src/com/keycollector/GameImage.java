@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
- * Creted by Yeow Wan Shung
+ * Creted by Eric
  * To load image from resources
  * **/
 

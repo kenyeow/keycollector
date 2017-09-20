@@ -8,6 +8,7 @@ import java.util.Arrays;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /**
+ * Created by Yeow Wan Shung, Fam Xuan Deng
  * Movement class is an ActionListener class for square class
  * It is responsible for movement of the player.
  * It checks the restriction of the player based on their key collection.

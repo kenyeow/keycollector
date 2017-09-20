@@ -3,6 +3,7 @@ package com.keycollector;
 import javax.swing.*;
 
 /**
+ * Created by Tan Di Xiang, Chiaw Pang Yee
  * Square class is a JButton in KeyCollectorBoard
  * Each square responsible for set player, remove player,
  *      add key and remove key.

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
+ * Created by Tan Di Xiang, Chiaw Pang Yee
  * Player class contain information about player.
  * It contain player's current position (row and column).
  * It contain the collection of key by the player.

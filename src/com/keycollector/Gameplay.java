@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Created by whole team
  * Gameplay class responsible for setting up players and keys.
  * **/
 public class Gameplay {
