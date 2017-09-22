@@ -1,9 +1,10 @@
 package com.keycollector;
 
 import javax.swing.*;
-/*
-Created by Eric
-*/
+
+/**
+ * Created by Eric.
+ * **/
 public class TreasureChest {
 
     private ImageIcon icon;

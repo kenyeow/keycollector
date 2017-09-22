@@ -47,12 +47,18 @@ public class Movement implements ActionListener {
         return ableToMove;
     }
 
+    /**
+     * Default Movement Restriction (player without any key)
+     * **/
     private boolean normalRestriction(){
         return (checkDirection(moveToRow, oriRow, 2) &&
                 checkDirection(moveToColumn, oriColumn, 2)) ||
                 checkDiagonal(moveToRow, moveToColumn, oriRow, oriColumn, 2);
     }
 
+    /**
+     * Checking horizontal or vertical movement with restriction.
+     * **/
     private boolean checkDirection(int moveToPos, int oriPos,
                                     int ableToMovePos){
         if((moveToRow - oriRow) != (moveToColumn - oriColumn)){
@@ -66,6 +72,9 @@ public class Movement implements ActionListener {
         return false;
     }
 
+    /**
+     * Checking diagonal direction with restriction.
+     * **/
     private boolean checkDiagonal(int moveToRow, int moveToColumn, int oriRow,
                                   int oriColumn, int ableToMoveDiagonal){
         if((moveToRow - oriRow) == (moveToColumn - oriColumn)){
@@ -103,6 +112,9 @@ public class Movement implements ActionListener {
         return false;
     }
 
+    /**
+     * Player moving to the specified square and get key (if any)
+     * **/
     private void makeMove(Player currentPlayer){
         Gameplay.removePlayerFromSquare(oriRow, oriColumn);
         currentPlayer.setPostion(moveToRow, moveToColumn);
@@ -114,6 +126,10 @@ public class Movement implements ActionListener {
         }
     }
 
+    /**
+     * Check player winning status, if all condition fullfilled, then win.
+     * Condition: Player has all key and make move to square with treasure chest.
+     * **/
     private void checkWinStatus(Player player){
         if(squareClicked.hasTreasureChest()){
             if(Gameplay.playerHasAllKey(player)){

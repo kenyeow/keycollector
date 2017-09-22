@@ -64,7 +64,6 @@ public class KeyCollectorBoard {
         jFrame.add(gamePanel,BorderLayout.WEST);
         jFrame.add(infoPanel,BorderLayout.EAST);
         jFrame.add(toolBar, BorderLayout.SOUTH);
-        jFrame.setResizable(false);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
